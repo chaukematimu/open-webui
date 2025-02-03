@@ -260,6 +260,7 @@ class OAuthManager:
                             }
                         async with aiohttp.ClientSession() as session:
                             async with session.get(picture_url, **get_kwargs) as resp:
+                                resp.raise_for_status()
                                 picture = await resp.read()
                                 base64_encoded_picture = base64.b64encode(
                                     picture
