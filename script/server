@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# is used to start the application and workers.
+
+set -e
+
+PORT="${PORT:-8080}"
+
+cd "$(dirname "$0")/.."
+script/update
+
+npm run dev &
+cd backend
+uvicorn open_webui.main:app --port $PORT --host 0.0.0.0 --forwarded-allow-ips '*' --reload
