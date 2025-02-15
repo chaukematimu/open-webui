@@ -9,6 +9,8 @@ PORT="${PORT:-8080}"
 cd "$(dirname "$0")/.."
 script/update
 
+docker compose -f docker-compose.postgres.yml up &
 npm run dev &
 cd backend
-uvicorn open_webui.main:app --port $PORT --host 0.0.0.0 --forwarded-allow-ips '*' --reload
+uvicorn open_webui.main:app --port $PORT --host 0.0.0.0 --forwarded-allow-ips '*' --reload &
+
